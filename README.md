@@ -132,4 +132,4 @@ For more information and examples look at [Appium.app](https://github.com/appium
 
 ### How to build
 
-###### objf-compile --arc -I/path/to/repo -I/path/to/repo/Selenium main.m /path/to/repo/*.m /path/to/repo/Selenium/*.m -o myapp
+###### objfw-compile --arc -I/path/to/repo -I/path/to/repo/Selenium main.m /path/to/repo/*.m /path/to/repo/Selenium/*.m -o myapp
