@@ -15,46 +15,31 @@
 @implementation SERemoteWebDriver
 
 #pragma mark - Public Methods
-/*
--(id) init
-{
-  if ([self class] != [SERemoteWebDriver class]) {
-      self = [super init];
 
-      return self;
-    }
-
-  OF_UNRECOGNIZED_SELECTOR;
-  OF_UNREACHABLE;
-    //@throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                   //reason:@"-init is not a valid initializer for the class SERemoteWebDriver"
-                                 //userInfo:nil];
-    //return nil;
-}
-*/
 -(id) initWithServerAddress:(OFString *)address port:(ssize_t)port
 {
-        self = [super init];
-    if (self) {
-                OFError *error;
-        [self setJsonWireClient:[[SEJsonWireClient alloc] initWithServerAddress:address port:port error:&error]];
-                [self addError:error];
-    }
+    self = [super init];
+
+    OFError *error;
+    [self setJsonWireClient:[[SEJsonWireClient alloc] initWithServerAddress:address port:port error:&error]];
+    [self addError:error];
+
+    if (self.jsonWireClient == nil)
+      return nil;
+
     return self;
 }
 
 -(id) initWithServerAddress:(OFString*)address port:(ssize_t)port desiredCapabilities:(SECapabilities*)desiredCapabilities requiredCapabilities:(SECapabilities*)requiredCapabilites error:(OFError**)error
 {
     self = [self initWithServerAddress:address port:port];
-    if (self) {
-        [self setJsonWireClient:[[SEJsonWireClient alloc] initWithServerAddress:address port:port error:error]];
-                [self addError:*error];
 
-		// get session
-		[self setSession:[self startSessionWithDesiredCapabilities:desiredCapabilities requiredCapabilities:requiredCapabilites]];
-	if (self.session == nil)
-	    return nil;
-    }
+    // get session
+    [self setSession:[self startSessionWithDesiredCapabilities:desiredCapabilities requiredCapabilities:requiredCapabilites]];
+
+    if (self.session == nil)
+        return nil;
+
     return self;
 }
 

@@ -26,16 +26,16 @@
 -(id) initWithServerAddress:(OFString*)address port:(ssize_t)port error:(OFError**)error
 {
     self = [super init];
-    if (self) {
-        [self setServerAddress:address];
-        [self setServerPort:port];
-        [self setErrors:[OFMutableArray new]];
 
-        // get status
-        [self getStatusAndReturnError:error];
-        if ([*error code] != 0)
-            return nil;
-    }
+    [self setServerAddress:address];
+    [self setServerPort:port];
+    [self setErrors:[OFMutableArray new]];
+
+    // get status
+    [self getStatusAndReturnError:error];
+    if ([*error code] != 0)
+        return nil;
+
     return self;
 }
 

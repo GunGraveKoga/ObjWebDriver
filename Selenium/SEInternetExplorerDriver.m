@@ -43,6 +43,9 @@
   OFError *error;
   SEJsonWireClient_IEDriver *jsonWireClient = [[SEJsonWireClient_IEDriver alloc] initWithServerAddress:serverAddress port:port error:&error];
 
+  if (jsonWireClient == nil)
+    return nil;
+
   [self performSelector:@selector(setJsonWireClient:) withObject:jsonWireClient];
 
   [self performSelector:@selector(addError:) withObject:error];
@@ -57,6 +60,9 @@
     OFError *error;
     SEJsonWireClient_IEDriver *jsonWireClient = [[SEJsonWireClient_IEDriver alloc] initWithServerAddress:address port:port error:&error];
 
+    if (jsonWireClient == nil)
+      return nil;
+
     [self performSelector:@selector(setJsonWireClient:) withObject:jsonWireClient];
 
     [self performSelector:@selector(addError:) withObject:error];
@@ -70,6 +76,9 @@
 
 
     SEJsonWireClient_IEDriver *jsonWireClient = [[SEJsonWireClient_IEDriver alloc] initWithServerAddress:address port:port error:error];
+
+    if (jsonWireClient == nil)
+      return nil;
 
     [self performSelector:@selector(setJsonWireClient:) withObject:jsonWireClient];
 

@@ -51,6 +51,9 @@
   OFError *error;
   SEJsonWireClient_GeckoDriver *jsonWireClient = [[SEJsonWireClient_GeckoDriver alloc] initWithServerAddress:serverAddress port:port error:&error];
 
+  if (jsonWireClient == nil)
+    return nil;
+
   [self performSelector:@selector(setJsonWireClient:) withObject:jsonWireClient];
 
   [self performSelector:@selector(addError:) withObject:error];
@@ -65,6 +68,9 @@
     OFError *error;
     SEJsonWireClient_GeckoDriver *jsonWireClient = [[SEJsonWireClient_GeckoDriver alloc] initWithServerAddress:address port:port error:&error];
 
+    if (jsonWireClient == nil)
+      return nil;
+
     [self performSelector:@selector(setJsonWireClient:) withObject:jsonWireClient];
 
     [self performSelector:@selector(addError:) withObject:error];
@@ -78,6 +84,9 @@
 
 
     SEJsonWireClient_GeckoDriver *jsonWireClient = [[SEJsonWireClient_GeckoDriver alloc] initWithServerAddress:address port:port error:error];
+
+    if (jsonWireClient == nil)
+      return nil;
 
     [self performSelector:@selector(setJsonWireClient:) withObject:jsonWireClient];
 
