@@ -715,9 +715,37 @@ _Pragma("clang diagnostic pop")
 
 - (void)verticallyFlip
 {
+  if (_bitsPerChannel == STBImage8BPC)
+    [self verticallyFlip_uint8_t];
+  else if (_bitsPerChannel == STBImage16BPC)
+    [self verticallyFlip_uint16_t];
+  else
+    OF_UNRECOGNIZED_SELECTOR;
+}
+
+- (void)verticallyFlip_uint8_t
+{
       int row,col,z;
       stbi_uc *image = (stbi_uc *)_bitmapBuffer;
       stbi_uc temp;
+
+      for (row = 0; row < (_height >> 1); row++) {
+          for (col = 0; col < _width; col++) {
+              for (z = 0; z < (int)_imageChannels; z++) {
+                  temp = image[(row * _width + col) * (int)_imageChannels + z];
+
+                  image[(row * _width + col) * (int)_imageChannels + z] = image[((_height - row - 1) * _width + col) * (int)_imageChannels + z];
+                  image[((_height - row - 1) * _width + col) * (int)_imageChannels + z] = temp;
+                }
+            }
+        }
+}
+
+- (void)verticallyFlip_uint16_t
+{
+      int row,col,z;
+      stbi__uint16 *image = (stbi__uint16 *)_bitmapBuffer;
+      stbi__uint16 temp;
 
       for (row = 0; row < (_height >> 1); row++) {
           for (col = 0; col < _width; col++) {
